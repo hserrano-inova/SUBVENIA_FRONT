@@ -60,15 +60,7 @@
           </div>
 
           <div class="row">
-            <div class="col-2">
-              <div class="mb-3">
-                <label for="cnae-grupo" class="form-label">CNAE Grp</label>
-                <select class="form-select form-select-sm" v-model="data.cnae_grupo">
-                  <option>A</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-2">
+            <div class="col-4">
               <div class="mb-3">
                 <label for="cnae-grupo" class="form-label">CNAE Cod.</label>
                 <input type="text" class="form-control form-control-sm" v-model="data.cnae_cod">

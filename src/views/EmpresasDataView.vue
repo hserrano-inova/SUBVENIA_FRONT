@@ -130,7 +130,7 @@ export default {
     })
 
     return {
-      header_data: { title: "Empresa", icon: "bi-bank", btn: ['save', 'del'] },
+      header_data: { title: "Empresa", icon: "bi-briefcase", btn: ['save', 'del'] },
       data,
       dataEval,
       tabs,

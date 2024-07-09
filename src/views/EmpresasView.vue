@@ -56,7 +56,7 @@ export default {
     })
 
     return {
-      header_data: { title: "Empresas", icon: "bi-bank", btn: ['new'] },
+      header_data: { title: "Empresas", icon: "bi-briefcase", btn: ['new'] },
       columns: ['cif', 'rsocial', 'acronimo', 'tipo', 'sector'],
       data,
       filters,

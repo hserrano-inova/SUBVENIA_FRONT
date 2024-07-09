@@ -31,11 +31,10 @@
         <SeccionTab :data="data" :row="i - 1" @evalTab="$emit('evalTab', $event)" />
       </div>
       <div v-if="t.tipo == 'sgeneral'">
-        <SubvGeneral :data="data" :dataEval="dataEval" @rowClick="$emit('rowClick', $event)"
-          @evalRowClick="$emit('evalRowClick', $event)" />
+        <SubvGeneral :data="data" :dataEval="dataEval" @rowClick="$emit('rowClick', $event)" />
       </div>
       <div v-if="t.tipo == 'pgeneral'">
-        <ProjectGeneral :data="data" :dataEval="dataEval" @rowClick="$emit('rowClick', $event)"
+        <ProjectGeneral :data="data" :dataEval="dataEval" @runEval="$emit('runEval')"
           @evalRowClick="$emit('evalRowClick', $event)" />
       </div>
     </div>

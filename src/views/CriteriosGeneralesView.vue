@@ -61,7 +61,7 @@ export default {
     })
 
     return {
-      header_data: { title: "Criterios Generales", icon: "bi-bank", btn: ['save'] },
+      header_data: { title: "Criterios Generales", icon: "bi-file-earmark-binary", btn: ['save'] },
       data,
       vhead,
       tabs,

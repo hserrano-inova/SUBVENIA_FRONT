@@ -5,8 +5,7 @@
       <VHead :data="header_data" ref="vhead" @new="newreg" @save="saveData" @del="delData" />
       <div class="col-12">
         <img v-show="waiting" src="@/assets/img/loading.gif" class="floating_gif" />
-        <LTabs :data="data" :tabs="tabs" :dataEval="dataEval" @selTab="selTab" @evalTab="evalmodal"
-          @evalRowClick="evalRowClick" />
+        <LTabs :data="data" :tabs="tabs" :dataEval="dataEval" @selTab="selTab" @runEval="runEval" />
       </div>
     </div>
   </div>
@@ -102,6 +101,10 @@ export default {
         })
     }
 
+    const runEval = () => {
+      alert('rueval')
+    }
+
     onMounted(() => {
       const p = route.query
       if (Object.prototype.hasOwnProperty.call(p, 'id')) {
@@ -111,7 +114,7 @@ export default {
     })
 
     return {
-      header_data: { title: "Proyecto", icon: "bi-bank", btn: ['save', 'del'] },
+      header_data: { title: "Proyecto", icon: "bi-wrench", btn: ['save', 'del'] },
       data,
       dataEval,
       tabs,
@@ -120,7 +123,8 @@ export default {
       queryData,
       renderTabs,
       saveData,
-      delData
+      delData,
+      runEval
     }
 
   },

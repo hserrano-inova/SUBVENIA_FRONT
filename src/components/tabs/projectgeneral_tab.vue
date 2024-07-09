@@ -2,13 +2,12 @@
   <!-- {{ data }} -->
   <div class="row" v-if="data">
     <div class="col-6 right-border">
-
+      <br>
       <div class="row">
-        <div class="col-12">
-          <div class="mb-3">
-            <label class="form-label mt-4">Observaciones</label>
-            <textarea class="form-control is-valid" v-model="data.observaciones">{{ data.observaciones }}</textarea>
-          </div>
+        <div class="mb-3">
+          <label for="rsocial" class="form-label">Nombre Proyecto</label>
+          <textarea class="form-control form-control-sm"
+            v-model="data.nombre_proyecto">{{ data.nombre_proyecto }}</textarea>
         </div>
       </div>
 
@@ -29,12 +28,6 @@
         </div>
       </div>
 
-      <div class="mb-3">
-        <label for="rsocial" class="form-label">Nombre Proyecto</label>
-        <textarea class="form-control form-control-sm"
-          v-model="data.nombre_proyecto">{{ data.nombre_proyecto }}</textarea>
-      </div>
-
       <div class="row">
         <div class="col-6">
           <fieldset disabled="">
@@ -52,10 +45,23 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="col-12">
+          <div class="mb-3">
+            <label class="form-label mt-4">Observaciones</label>
+            <textarea class="form-control is-valid" v-model="data.observaciones">{{ data.observaciones }}</textarea>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="col-6">
-      <legend>Evaluaciones</legend>
+      <br>
+      <legend>
+        Evaluaciones
+        <button @click="$emit('runEval')" type="button" class="btn btn-sm btn-danger float-end">Run</button>
+      </legend>
       <hr>
       <STable :data="dataEval" :columns="project_columns" :filters="filters"
         @rowClick="$emit('evalRowClick', $event)" />
@@ -101,7 +107,7 @@ export default {
     return {
       settings,
       columns_fechas: ['nfase', 'estado', 'fecha'],
-      project_columns: ['proyecto'],
+      project_columns: ['nsubvencion'],
       linkClick,
       formattedDate
     }

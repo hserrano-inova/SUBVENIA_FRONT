@@ -1,12 +1,12 @@
 <template>
   <div>
-    <ModalF ref="modal_evalua" title="Evaluacion" @evalRun="evalRun" @saveEval="saveEval" />
+    <ModalF ref="modal_fechas" title="Fechas" @new="new_fecha" @del="del_fecha" />
+
     <div class="row">
       <VHead :data="header_data" ref="vhead" @new="newreg" @save="saveData" @del="delData" />
       <div class="col-12">
         <img v-show="waiting" src="@/assets/img/loading.gif" class="floating_gif" />
-        <LTabs :data="data" :tabs="tabs" :dataEval="dataEval" @selTab="selTab" @evalTab="evalmodal"
-          @evalRowClick="evalRowClick" />
+        <LTabs :data="data" :tabs="tabs" :dataEval="dataEval" @selTab="selTab" @rowClick="rowClick" />
       </div>
     </div>
   </div>
@@ -33,6 +33,7 @@ export default {
     const idSub = ref(0)
     const selectedTab = ref(0)
     const vhead = ref(null)
+    const modal_fechas = ref(null)
 
     const renderTabs = () => {
       tabs.value = [{ 'header': 'general', 'tipo': 'sgeneral', 'fields': [] }]
@@ -101,6 +102,25 @@ export default {
         })
     }
 
+    const rowClick = (row) => {
+      modal_fechas.value.showModal(row)
+    }
+
+    const new_fecha = () => {
+      data.value.fechas.push(
+        { 'nfase': '', 'estado': 0, 'fecha': '' }
+      )
+      const loc = data.value.fechas
+      modal_fechas.value.showModal({ row: loc[loc.length - 1], pos: loc.length })
+    }
+    const del_fecha = (idx) => {
+      const loc = data.value.fechas
+      if (loc.length > 1) {
+        loc.splice(idx, 1)
+      }
+      modal_fechas.value.closeModal()
+    }
+
     onMounted(() => {
       const p = route.query
       if (Object.prototype.hasOwnProperty.call(p, 'id')) {
@@ -116,10 +136,14 @@ export default {
       tabs,
       selectedTab,
       vhead,
+      modal_fechas,
       queryData,
       renderTabs,
       saveData,
-      delData
+      delData,
+      rowClick,
+      new_fecha,
+      del_fecha
     }
 
   },
