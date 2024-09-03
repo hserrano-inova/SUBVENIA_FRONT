@@ -6,7 +6,7 @@
       <div class="col-12">
         <img v-show="waiting" src="@/assets/img/loading.gif" class="floating_gif" />
         <LTabs :data="data" :tabs="tabs" :dataEval="dataEval" @selTab="selTab" @evalTab="evalmodal" @newPrj="newPrj"
-          @evalRowClick="evalRowClick" />
+          @evalRowClick="evalRowClick" @autoGen="autoGen" />
       </div>
     </div>
   </div>
@@ -121,6 +121,25 @@ export default {
       router.push({ path: '/pdata', query: { id: 0, empid: idEmp.value } })
     }
 
+
+    const autoGen = async(sel_option) =>{
+      await axios.post('/autogen/',
+        JSON.stringify({
+          "source":"projects", 
+          "option":sel_option,
+          "prompt":"genera una lista de tags separadas por comas de la siguiente descripcion de emprea: " + data.value['descripcion']
+      }),
+        { headers: { 'Content-Type': 'application/json' } }
+      )
+      .then((response) => {
+        data.value[sel_option] = response.data
+      })
+      .catch((error) => {
+        vhead.value.showaviso(1, error)
+      })
+    }
+
+
     onMounted(() => {
       const p = route.query
       if (Object.prototype.hasOwnProperty.call(p, 'id')) {
@@ -141,7 +160,8 @@ export default {
       saveData,
       delData,
       newPrj,
-      evalRowClick
+      evalRowClick,
+      autoGen
     }
 
   },

@@ -7,7 +7,11 @@
     <div class="col 4">
       <legend>Observaciones</legend>
       <textarea v-model="data['observaciones']" rows="10" class="form-control is-valid"></textarea>
-      <legend>Tags</legend>
+      <hr>
+      <legend>
+        Tags
+        <button class="btn btn-success btn-sm" @click="$emit('autoGen','tags')">Asistente</button>
+      </legend>
       <textarea v-model="data['tags']" rows="5" class="form-control is-valid"></textarea>
     </div>
   </div>
@@ -18,6 +22,7 @@
 export default {
   name: 'SeccionTab',
   props: ['data', 'row'],
+  emits: ['autoGen'],
 
   setup() {
 

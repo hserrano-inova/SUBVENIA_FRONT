@@ -1,7 +1,7 @@
 <template>
   <div class="navbar navbar-expand-lg fixed-top bg-warning" data-bs-theme="dark">
     <div class="container">
-      <a href="/lview" class="navbar-brand">
+      <a href="/eview" class="navbar-brand">
         <img src="@/assets/img/applogo.png" alt="Bootstrap" class="d-inline-block align-text-top">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"

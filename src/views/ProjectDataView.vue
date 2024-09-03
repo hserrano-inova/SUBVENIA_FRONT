@@ -5,7 +5,9 @@
       <VHead :data="header_data" ref="vhead" @new="newreg" @save="saveData" @del="delData" />
       <div class="col-12">
         <img v-show="waiting" src="@/assets/img/loading.gif" class="floating_gif" />
-        <LTabs :data="data" :tabs="tabs" :dataEval="dataEval" @selTab="selTab" @runEval="runEval" />
+        <LTabs :data="data" :tabs="tabs" :dataEval="dataEval" 
+        :secciones="[['beneficiarios', 'objetivo', 'inversion_inovacion', 'conceptos_financiables', 'consorcio'],[false, true, false, false, false]]" 
+        @selTab="selTab" @runEval="runEval" @autoGen="autoGen" />
       </div>
     </div>
   </div>
@@ -105,6 +107,23 @@ export default {
       alert('rueval')
     }
 
+    const autoGen = async(sel_option) =>{
+      await axios.post('/autogen/',
+        JSON.stringify({
+          "source":"projects", 
+          "option":sel_option,
+          "prompt":data.value[sel_option]['descripcion']
+      }),
+        { headers: { 'Content-Type': 'application/json' } }
+      )
+      .then((response) => {
+        data.value[sel_option]['descripcion'] = response.data
+      })
+      .catch((error) => {
+        vhead.value.showaviso(1, error)
+      })
+    }
+
     onMounted(() => {
       const p = route.query
       if (Object.prototype.hasOwnProperty.call(p, 'id')) {
@@ -124,7 +143,8 @@ export default {
       renderTabs,
       saveData,
       delData,
-      runEval
+      runEval,
+      autoGen
     }
 
   },

@@ -4,7 +4,7 @@
     <div class="row">
       <div class="col-12">
         <label class="form-label">Criterio</label>
-        <textarea v-model="data[secciones[row]]['criterio']" rows="10" class="form-control is-valid"></textarea>
+        <textarea v-model="data[secciones[0][row]]['criterio']" rows="10" class="form-control is-valid"></textarea>
       </div>
     </div>
   </div>
@@ -14,12 +14,12 @@
 
 export default {
   name: 'SeccionTab',
-  props: ['data', 'row'],
+  props: ['data', 'row','secciones'],
 
   setup() {
 
     return {
-      secciones: ['beneficiarios', 'objetivo', 'inversion_inovacion', 'conceptos_financiables', 'consorcio']
+  
     }
   }
 }

@@ -2,7 +2,7 @@
   <div>
     <VHead :data="header_data" ref="vhead" @new="newreg" @save="saveData" @del="delData" />
     <div class="row">
-      <LTabs :data="data" :tabs="tabs" />
+      <LTabs :data="data" :tabs="tabs" :secciones="[['beneficiarios', 'objetivo', 'inversion_inovacion', 'conceptos_financiables', 'consorcio'],[false, false, false, false, false]]" />
     </div>
   </div>
 </template>

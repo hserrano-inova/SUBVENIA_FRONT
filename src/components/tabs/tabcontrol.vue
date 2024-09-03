@@ -17,18 +17,18 @@
           @evalRowClick="$emit('evalRowClick', $event)" />
       </div>
       <div v-if="t.tipo == 'edescrip'">
-        <EmpDescrip :data="data" :row="i" @evalTab="$emit('evalTab', $event)" />
+        <EmpDescrip :data="data" :row="i" @evalTab="$emit('evalTab', $event)" @autoGen="$emit('autoGen', $event)" />
       </div>
       <div v-if="t.tipo == 'econtact'">
         <EmpContact :data="data" :row="i" @evalTab="$emit('evalTab', $event)" />
       </div>
       <!-- ------------------CRITERIA------------------ -->
       <div v-if="t.tipo == 'criteria'">
-        <CriteriaTab :data="data" :row="i" @evalTab="$emit('evalTab', $event)" />
+        <CriteriaTab :data="data" :row="i" :secciones="secciones" @evalTab="$emit('evalTab', $event)" />
       </div>
       <!-- ------------------SUBV------------------ -->
       <div v-if="t.tipo == 'seccion'">
-        <SeccionTab :data="data" :row="i - 1" @evalTab="$emit('evalTab', $event)" />
+        <SeccionTab :data="data" :row="i - 1" :secciones="secciones" @evalTab="$emit('evalTab', $event)" @autoGen="$emit('autoGen', $event)" />
       </div>
       <div v-if="t.tipo == 'sgeneral'">
         <SubvGeneral :data="data" :dataEval="dataEval" @rowClick="$emit('rowClick', $event)" />
@@ -57,8 +57,9 @@ import EmpContact from '@/components/tabs/empresa/econtact_tab.vue'
 
 export default {
   name: 'LTabs',
-  props: ['data', 'tabs', 'dataEval'],
+  props: ['data', 'tabs', 'dataEval','secciones'],
   components: { CriteriaTab, SeccionTab, SubvGeneral, ProjectGeneral, EmpGeneral, EmpDescrip, EmpContact },
+  emits: ['newPrj', 'evalRowClick', 'autoGen', 'evalTab', 'rowClick', 'runEval'],
 }
 </script>
 
