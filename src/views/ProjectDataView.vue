@@ -34,6 +34,8 @@ export default {
     const idSub = ref(0)
     const selectedTab = ref(0)
     const vhead = ref(null)
+    const empid = ref(0)
+
 
     const renderTabs = () => {
       tabs.value = [{ 'header': 'general', 'tipo': 'pgeneral', 'fields': [] }]
@@ -63,7 +65,7 @@ export default {
 
       if (data.value.nombre != '') {
         if (idSub.value == '0') {
-
+          data.value['id_empresa'] = empid.value
           await axios.post('/projects/',
             JSON.stringify(data.value),
             { headers: { 'Content-Type': 'application/json' } }
@@ -126,6 +128,9 @@ export default {
 
     onMounted(() => {
       const p = route.query
+      if (Object.prototype.hasOwnProperty.call(p, 'empid')) {
+        empid.value = p.empid
+      }
       if (Object.prototype.hasOwnProperty.call(p, 'id')) {
         idSub.value = p.id
         queryData()
@@ -138,6 +143,7 @@ export default {
       dataEval,
       tabs,
       selectedTab,
+      empid,
       vhead,
       queryData,
       renderTabs,
