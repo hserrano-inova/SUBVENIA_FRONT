@@ -31,11 +31,11 @@ export default {
     const router = useRouter();
     const username = ref('');
     const password = ref('');
-
+    
     const handleLogin = async () => {
       await AuthService.login(username.value, password.value)
         .then(() => {
-          router.push('/sview')
+          router.push('/eview')
         })
     };
 

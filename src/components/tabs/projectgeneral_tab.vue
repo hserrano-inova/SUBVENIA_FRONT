@@ -63,8 +63,12 @@
         <button @click="$emit('runEval')" type="button" class="btn btn-sm btn-danger float-end">Run</button>
       </legend>
       <hr>
-      <STable :data="dataEval" :columns="project_columns" :filters="filters"
-        @rowClick="$emit('evalRowClick', $event)" />
+      <!-- <STable :data="dataEval" :columns="project_columns" :filters="filters"
+        @rowClick="$emit('evalRowClick', $event)" /> -->
+      
+      <div style="height:500px;overflow-y:auto">
+        <evalCard v-for="(t, i) in dataEval" :key="i" :data="t"/>
+      </div>
     </div>
 
   </div>
@@ -72,13 +76,15 @@
 
 <script>
 import { ref, inject } from 'vue' //watch
-import STable from '@/components/smart_table/smart_table.vue';
+// import STable from '@/components/smart_table/smart_table.vue';
+import evalCard from '@/components/eval/eval_card.vue';
 
 export default {
   name: 'SGeneral',
   props: ['data', 'dataEval'],
   emits: ['rowClick'],
-  components: { STable },
+  components: { evalCard  }, //STable
+
   setup(props, { emit }) {
     const settings = inject('settings');
 

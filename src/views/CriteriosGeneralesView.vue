@@ -56,6 +56,7 @@ export default {
         })
 
     };
+
     onMounted(() => {
       queryData()
     })
@@ -66,7 +67,7 @@ export default {
       vhead,
       tabs,
       saveData,
-      queryData
+      queryData,
     }
   }
 }

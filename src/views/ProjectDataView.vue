@@ -13,9 +13,8 @@
   </div>
 </template>
 
-
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 import axios from '@/authreq/axios';
 import VHead from '@/components/navbar/viewheader.vue'
@@ -28,14 +27,16 @@ export default {
   setup() {
     const route = useRoute()
     const router = useRouter()
-    const data = ref([])
-    const dataEval = ref({})
+    const data = ref([]) //data del proyecto
+    const dataEval = ref([]) //lista de evaluaciones
     const tabs = ref([])
     const idSub = ref(0)
     const selectedTab = ref(0)
     const vhead = ref(null)
     const empid = ref(0)
-
+    const wsdata = ref([])
+    const waiting = ref(false)
+    let ws;
 
     const renderTabs = () => {
       tabs.value = [{ 'header': 'general', 'tipo': 'pgeneral', 'fields': [] }]
@@ -106,10 +107,25 @@ export default {
     }
 
     const runEval = () => {
-      alert('rueval')
+      dataEval.value = []
+      waiting.value = true
+      ws = new WebSocket('ws://127.0.0.1:8000/peval')
+      ws.onmessage = (e) =>{
+        dataEval.value.push(e.data)
+      }
+      ws.onclose =(e) =>{
+        waiting.value = false
+        console.log(e)
+      }
+      ws.onerror =(e) =>{
+        waiting.value = false
+        console.log(e)
+      }
+
     }
 
     const autoGen = async(sel_option) =>{
+      waiting.value = true
       await axios.post('/autogen/',
         JSON.stringify({
           "source":"projects", 
@@ -124,6 +140,7 @@ export default {
       .catch((error) => {
         vhead.value.showaviso(1, error)
       })
+      waiting.value = false
     }
 
     onMounted(() => {
@@ -134,6 +151,12 @@ export default {
       if (Object.prototype.hasOwnProperty.call(p, 'id')) {
         idSub.value = p.id
         queryData()
+      }
+    })
+
+    onUnmounted(() => {
+      if(ws){
+        ws.close()
       }
     })
 
@@ -150,7 +173,9 @@ export default {
       saveData,
       delData,
       runEval,
-      autoGen
+      autoGen,
+      wsdata,
+      waiting
     }
 
   },
