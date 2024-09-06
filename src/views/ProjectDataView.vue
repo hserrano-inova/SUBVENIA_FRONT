@@ -30,7 +30,7 @@ export default {
     const data = ref([]) //data del proyecto
     const dataEval = ref([]) //lista de evaluaciones
     const tabs = ref([])
-    const idSub = ref(0)
+    const idPrj = ref(0)
     const selectedTab = ref(0)
     const vhead = ref(null)
     const empid = ref(0)
@@ -49,7 +49,7 @@ export default {
 
 
     const queryData = async () => {
-      await axios.get('/projects/' + idSub.value)
+      await axios.get('/projects/' + idPrj.value)
         .then((response) => {
           //console.log(response.data)
           data.value = response.data
@@ -65,7 +65,7 @@ export default {
       data.value.actualizada = new Date()
 
       if (data.value.nombre != '') {
-        if (idSub.value == '0') {
+        if (idPrj.value == '0') {
           data.value['id_empresa'] = empid.value
           await axios.post('/projects/',
             JSON.stringify(data.value),
@@ -78,7 +78,7 @@ export default {
               vhead.value.showaviso(1, error)
             })
         } else {
-          await axios.put('/projects/' + idSub.value,
+          await axios.put('/projects/' + idPrj.value,
             JSON.stringify(data.value),
             { headers: { 'Content-Type': 'application/json' } }
           )
@@ -96,7 +96,7 @@ export default {
     }
 
     const delData = async () => {
-      await axios.delete('/projects/' + idSub.value)
+      await axios.delete('/projects/' + idPrj.value)
         .then(() => {
           //console.log(response.data)
           router.push('/eview')
@@ -109,7 +109,9 @@ export default {
     const runEval = () => {
       dataEval.value = []
       waiting.value = true
-      ws = new WebSocket('ws://127.0.0.1:8000/peval')
+      //ws = new WebSocket('ws://127.0.0.1:8000/ws/peval?prjid='+idPrj.value)
+      ws = new WebSocket('wss://subvenia.inovalabs.es/ws/peval/?prjid='+idPrj.value)
+
       ws.onmessage = (e) =>{
         dataEval.value.push(e.data)
       }
@@ -149,7 +151,7 @@ export default {
         empid.value = p.empid
       }
       if (Object.prototype.hasOwnProperty.call(p, 'id')) {
-        idSub.value = p.id
+        idPrj.value = p.id
         queryData()
       }
     })
