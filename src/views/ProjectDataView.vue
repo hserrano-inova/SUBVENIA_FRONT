@@ -110,14 +110,14 @@ export default {
       dataEval.value = []
       waiting.value = true
       //check if build is in production
-      if (import.meta.env.PROD) {
+      //if (import.meta.env.PROD) {
         ws = new WebSocket('wss://subvenia.inovalabs.es/ws/peval/?prjid='+idPrj.value)
-      }else{
-        ws = new WebSocket('ws://127.0.0.1:8000/ws/peval/?prjid='+idPrj.value)
-      }
+      // }else{
+      //   ws = new WebSocket('ws://127.0.0.1:8000/ws/peval/?prjid='+idPrj.value)
+      // }
 
       ws.onmessage = (e) =>{
-        dataEval.value.push(e.data)
+        dataEval.value.push(JSON.parse(e.data))
       }
       ws.onclose =(e) =>{
         waiting.value = false
