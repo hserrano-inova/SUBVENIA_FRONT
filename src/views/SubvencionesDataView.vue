@@ -6,7 +6,7 @@
       <VHead :data="header_data" ref="vhead" @new="newreg" @save="saveData" @del="delData" />
       <div class="col-12">
         <img v-show="waiting" src="@/assets/img/loading.gif" class="floating_gif" />
-        <LTabs :data="data" :tabs="tabs" :dataEval="dataEval" @selTab="selTab" @rowClick="rowClick" />
+        <LTabs :data="data" :tabs="tabs" :dataEval="dataEval" :secciones="[['beneficiarios', 'objetivo', 'inversion_inovacion', 'conceptos_financiables', 'consorcio'],[false, false, false, false, false]]" @selTab="selTab" @rowClick="rowClick" />
       </div>
     </div>
   </div>

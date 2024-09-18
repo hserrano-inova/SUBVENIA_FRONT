@@ -56,8 +56,8 @@ export default {
     const links = ref({
       'Subvenciones': '/sview',
       'Empresas': '/eview',
-      'Criterios generales': '/cgen',
-      'Settings': '/settings',
+      //'Criterios generales': '/cgen',
+      //'Settings': '/settings',
     })
     return {
       version: import.meta.env.VITE_APP_VERSION,

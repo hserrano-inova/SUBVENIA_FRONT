@@ -9,7 +9,7 @@
 
 <script>
 import { ref, onMounted } from 'vue'
-import axios from '@/authreq/axios'
+import axios from '@/authreq/axios';
 import VHead from '@/components/navbar/viewheader.vue'
 import LTabs from '@/components/tabs/tabcontrol.vue'
 
@@ -32,7 +32,7 @@ export default {
     const queryData = async () => {
       await axios.get('/criterios/')
         .then((response) => {
-          //console.log(response.data)
+          console.log(response.data)
           data.value = response.data
           tabs.value = []
           renderTabs()
